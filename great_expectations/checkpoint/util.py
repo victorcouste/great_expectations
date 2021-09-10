@@ -210,6 +210,7 @@ def get_runtime_batch_request(
     else:
         batch_request_class = BatchRequest
 
+    print(f'\n[ALEX_TEST] [CHECKPOINT.UTIL] BATCH_REQUEST_CLASS: {batch_request_class} ; TYPE: {str(type(batch_request_class))}')
     if runtime_config_batch_request is None:
         return (
             validation_batch_request
