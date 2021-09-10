@@ -31,6 +31,7 @@ from dateutil.parser import parse
 from pkg_resources import Distribution
 
 from great_expectations.core.expectation_suite import expectationSuiteSchema
+from great_expectations.core.util import ensure_json_serializable
 from great_expectations.exceptions import (
     GreatExpectationsError,
     PluginClassNotFoundError,
@@ -911,6 +912,36 @@ def lint_code(code: str) -> str:
         return code
 
 
+def best_effort_deepcopy(data: Any) -> Optional[Any]:
+    if data is None:
+        return None
+
+    try:
+        ensure_json_serializable(data=data)
+        return copy.deepcopy(data)
+    except GreatExpectationsError:
+        if isinstance(data, dict):
+            properties: dict = {}
+            key: str
+            value: Any
+            for key, value in data.items():
+                try:
+                    properties[key] = best_effort_deepcopy(data=value)
+                except GreatExpectationsError:
+                    properties[key] = value
+            return properties
+        elif isinstance(data, list):
+            properties: list = []
+            element: Any
+            for element in data:
+                try:
+                    properties.append(best_effort_deepcopy(data=element))
+                except GreatExpectationsError:
+                    properties.append(element)
+            return properties
+        return data
+
+
 def filter_properties_dict(
     properties: dict,
     keep_fields: Optional[list] = None,
@@ -944,7 +975,11 @@ def filter_properties_dict(
         clean_nulls = True
 
     if not inplace:
-        properties = copy.deepcopy(properties)
+        # TODO: <Alex>ALEX</Alex>
+        # properties = copy.deepcopy(properties)
+        # TODO: <Alex>ALEX</Alex>
+        properties = best_effort_deepcopy(data=properties)
+        # TODO: <Alex>ALEX</Alex>
 
     keys_for_deletion: list = []
 
