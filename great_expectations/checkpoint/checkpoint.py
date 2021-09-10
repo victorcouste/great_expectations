@@ -3,7 +3,6 @@ import datetime
 import json
 import logging
 import os
-from copy import deepcopy
 from typing import Dict, List, Optional, Union
 from uuid import UUID
 
@@ -123,11 +122,14 @@ class Checkpoint:
         config: Optional[Union[CheckpointConfig, dict]] = None,
         runtime_kwargs: Optional[dict] = None,
     ) -> CheckpointConfig:
+        print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-0: {config} ; TYPE: {str(type(config))}')
         runtime_kwargs = runtime_kwargs or {}
         if config is None:
             config = self.config
+            print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-2: {config} ; TYPE: {str(type(config))}')
         if isinstance(config, dict):
             config = CheckpointConfig(**config)
+            print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-3: {config} ; TYPE: {str(type(config))}')
 
         # Necessary when using RuntimeDataConnector with SimpleCheckpoint
         if isinstance(config.batch_request, BatchRequest):
@@ -144,14 +146,17 @@ class Checkpoint:
             and not runtime_kwargs.get("template_name")
             and not config.template_name
         ):
-            substituted_config = deepcopy(self._substituted_config)
+            print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] SELF._SUBSTITUTED_CONFIG-0: {self._substituted_config} ; TYPE: {str(type(self._substituted_config))}')
+            substituted_config = copy.deepcopy(self._substituted_config)
             if any(runtime_kwargs.values()):
                 substituted_config.update(runtime_kwargs=runtime_kwargs)
         else:
             template_name = runtime_kwargs.get("template_name") or config.template_name
 
             if not template_name:
+                print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-4: {config} ; TYPE: {str(type(config))}')
                 substituted_config = copy.deepcopy(config)
+                print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] SUBSTITUTED_CONFIG-0: {substituted_config} ; TYPE: {str(type(substituted_config))}')
                 if any(runtime_kwargs.values()):
                     substituted_config.update(runtime_kwargs=runtime_kwargs)
 
