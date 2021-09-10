@@ -156,6 +156,10 @@ class Checkpoint:
 
             if not template_name:
                 print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-5: {config} ; TYPE: {str(type(config))}')
+                # TODO: <Alex>ALEX</Alex>
+                if isinstance(config, CheckpointConfig):
+                    print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] INSIDE_CONFIG-5: {config.to_json_dict()}')
+                # TODO: <Alex>ALEX</Alex>
                 substituted_config = copy.deepcopy(config)
                 print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] SUBSTITUTED_CONFIG-0: {substituted_config} ; TYPE: {str(type(substituted_config))}')
                 if any(runtime_kwargs.values()):
