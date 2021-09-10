@@ -128,8 +128,9 @@ class Checkpoint:
             config = self.config
             print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-2: {config} ; TYPE: {str(type(config))}')
         if isinstance(config, dict):
-            config = CheckpointConfig(**config)
             print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-3: {config} ; TYPE: {str(type(config))}')
+            config = CheckpointConfig(**config)
+            print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-4: {config} ; TYPE: {str(type(config))}')
 
         # Necessary when using RuntimeDataConnector with SimpleCheckpoint
         if isinstance(config.batch_request, BatchRequest):
@@ -154,7 +155,7 @@ class Checkpoint:
             template_name = runtime_kwargs.get("template_name") or config.template_name
 
             if not template_name:
-                print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-4: {config} ; TYPE: {str(type(config))}')
+                print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] CONFIG-5: {config} ; TYPE: {str(type(config))}')
                 substituted_config = copy.deepcopy(config)
                 print(f'\n[ALEX_TEST] [CHECKPOINT.GET_SUBSTITUTED_CONFIG] SUBSTITUTED_CONFIG-0: {substituted_config} ; TYPE: {str(type(substituted_config))}')
                 if any(runtime_kwargs.values()):
