@@ -72,28 +72,54 @@ class Checkpoint:
             raise TypeError("A Checkpoint requires a valid DataContext")
         self._data_context = data_context
 
-        checkpoint_config: CheckpointConfig = CheckpointConfig(
-            **{
-                "name": name,
-                "config_version": config_version,
-                "template_name": template_name,
-                "module_name": module_name,
-                "class_name": class_name,
-                "run_name_template": run_name_template,
-                "expectation_suite_name": expectation_suite_name,
-                "batch_request": batch_request,
-                "action_list": action_list,
-                "evaluation_parameters": evaluation_parameters,
-                "runtime_configuration": runtime_configuration,
-                "validations": validations,
-                "profilers": profilers,
-                "ge_cloud_id": ge_cloud_id,
-                # Next two fields are for LegacyCheckpoint configuration
-                "validation_operator_name": validation_operator_name,
-                "batches": batches,
-            }
-        )
+        # TODO: <Alex>ALEX</Alex>
+        checkpoint_config_args = {
+            "name": name,
+            "config_version": config_version,
+            "template_name": template_name,
+            "module_name": module_name,
+            "class_name": class_name,
+            "run_name_template": run_name_template,
+            "expectation_suite_name": expectation_suite_name,
+            "batch_request": batch_request,
+            "action_list": action_list,
+            "evaluation_parameters": evaluation_parameters,
+            "runtime_configuration": runtime_configuration,
+            "validations": validations,
+            "profilers": profilers,
+            "ge_cloud_id": ge_cloud_id,
+            # Next two fields are for LegacyCheckpoint configuration
+            "validation_operator_name": validation_operator_name,
+            "batches": batches,
+        }
+        print(f'\n[ALEX_TEST] [CHECKPOINT.__INIT__] CONFIG_ARGS-0: {checkpoint_config_args} ; TYPE: {str(type(checkpoint_config_args))}')
+        checkpoint_config: CheckpointConfig = CheckpointConfig(**checkpoint_config_args)
+        # TODO: <Alex>ALEX</Alex>
+        # TODO: <Alex>ALEX</Alex>
+        # checkpoint_config: CheckpointConfig = CheckpointConfig(
+        #     **{
+        #         "name": name,
+        #         "config_version": config_version,
+        #         "template_name": template_name,
+        #         "module_name": module_name,
+        #         "class_name": class_name,
+        #         "run_name_template": run_name_template,
+        #         "expectation_suite_name": expectation_suite_name,
+        #         "batch_request": batch_request,
+        #         "action_list": action_list,
+        #         "evaluation_parameters": evaluation_parameters,
+        #         "runtime_configuration": runtime_configuration,
+        #         "validations": validations,
+        #         "profilers": profilers,
+        #         "ge_cloud_id": ge_cloud_id,
+        #         # Next two fields are for LegacyCheckpoint configuration
+        #         "validation_operator_name": validation_operator_name,
+        #         "batches": batches,
+        #     }
+        # )
+        # TODO: <Alex>ALEX</Alex>
         self._config = checkpoint_config
+        print(f'\n[ALEX_TEST] [CHECKPOINT.__INIT__] CONFIG_-0: {self._config} ; TYPE: {str(type(self._config))}')
         self._substituted_config = None
 
     @property
