@@ -92,6 +92,7 @@ class BaseYamlConfig(SerializableDictDot):
             raise
 
     def _get_schema_validated_updated_commented_map(self) -> CommentedMap:
+        print(f'\n[ALEX_TEST] [BASE._GET_SCHEMA_VALIDATED_UPDATED_COMMENTED_MAP] SELF._COMMENTED_MAP-0: {self._commented_map}')
         commented_map: CommentedMap = deepcopy(self._commented_map)
         commented_map.update(self._get_schema_instance().dump(self))
         return commented_map
