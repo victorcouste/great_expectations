@@ -1855,6 +1855,7 @@ class CheckpointConfigSchema(Schema):
 
     @validates_schema
     def validate_schema(self, data, **kwargs):
+        print(f'\n[ALEX_TEST] [BASE.CheckpointConfigSchema.VALIDATE_SCHEMA] DATA-0: {data}')
         if not (
             "name" in data or "validation_operator_name" in data or "batches" in data
         ):
